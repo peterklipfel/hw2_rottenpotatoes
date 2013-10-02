@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
 
   def index
     unless params[:sort].nil? || params[:column].nil?
-      order = params[:sort]==0 ? 'asc' : 'desc'
+      order = params[:sort].to_i==0 ? 'asc' : 'desc'
       @movies = Movie.sort(params[:column], order)
     else
       @movies = Movie.all
