@@ -7,11 +7,13 @@ class MoviesController < ApplicationController
   end
 
   def index
+    session.merge! params # this will store controller, action, etc. info, but normally this would be encrypted server side, so we shouldn't care
     @all_ratings = ['G', 'PG', 'PG-13', 'R']
-    @movies = Movie.filter_by_ratings(params[:ratings].keys)
-                   .sort_with_params(params[:column]||'title', params[:sort]||'asc')
-    @title_css_class = params[:column]=='title' ? 'hilite' : ''
-    @release_date_css_class = params[:column]=='release_date' ? 'hilite' : ''
+    @movies = Movie.filter_by_ratings(session[:ratings].keys || @all_ratings)
+                   .sort_with_params(session[:column]||'title', session[:sort]||'asc')
+    @title_css_class = session[:column]=='title' ? 'hilite' : ''
+    @release_date_css_class = session[:column]=='release_date' ? 'hilite' : ''
+    logger.info { "  session: "+session.inspect }
   end
 
   def new
