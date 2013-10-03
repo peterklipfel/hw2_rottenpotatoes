@@ -4,10 +4,10 @@
 %table#movies
   %thead
     %tr
-      %th 
-        = link_to "Movie Title", :controller => 'movies', :action => 'index', :sort => 1-params[:sort].to_i, :column => 'title'
+      %th{:class => @title_css_class}
+        = link_to "Movie Title", :controller => 'movies', :action => 'index', :sort => 1-params[:sort].to_i, :column => 'title', :class => 'hilite'
       %th Rating
-      %th 
+      %th{:class => @release_date_css_class}
         = link_to "Release Date", :controller => 'movies', :action => 'index', :sort => 1-params[:sort].to_i, :column => 'release_date'
       %th More Info
   %tbody
