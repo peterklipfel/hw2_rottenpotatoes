@@ -7,14 +7,10 @@ class MoviesController < ApplicationController
   end
 
   def index
-    unless params[:sort].nil? || params[:column].nil?
-      order = params[:sort].to_i==0 ? 'asc' : 'desc'
-      @title_css_class = params[:column]=='title' ? 'hilite' : ''
-      @release_date_css_class = params[:column]=='release_date' ? 'hilite' : ''
-      @movies = Movie.sort(params[:column], order)
-    else
-      @movies = Movie.all
-    end
+    @all_ratings = ['G', 'PG', 'PG-13', 'R']
+    @movies = Movie.sort(params[:column]||'title', params[:sort]||'asc')
+    @title_css_class = params[:column]=='title' ? 'hilite' : ''
+    @release_date_css_class = params[:column]=='release_date' ? 'hilite' : ''
   end
 
   def new
