@@ -8,7 +8,8 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = ['G', 'PG', 'PG-13', 'R']
-    @movies = Movie.sort(params[:column]||'title', params[:sort]||'asc')
+    @movies = Movie.filter_by_ratings(params[:ratings].keys)
+                   .sort_with_params(params[:column]||'title', params[:sort]||'asc')
     @title_css_class = params[:column]=='title' ? 'hilite' : ''
     @release_date_css_class = params[:column]=='release_date' ? 'hilite' : ''
   end
