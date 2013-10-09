@@ -3,8 +3,9 @@
 = form_tag movies_path, :method => :get do
   Include:
   - @all_ratings.each do |rating|
+    - puts rating.to_s
     = rating
-    = check_box_tag "ratings[#{rating}]"
+    = check_box_tag "ratings[#{rating}]", 1, ((session[:ratings] || []).include? rating)
   = submit_tag 'Refresh'
 %table#movies
   %thead
